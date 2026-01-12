@@ -33,7 +33,6 @@ class ImageSource {
   static const String dog = 'assets/png/dog.png';
   static const String cat = 'assets/png/cat.png';
   static const String hamster = 'assets/png/hamster.png';
-  static const String rabbit = 'assets/png/kit.png';
 
   // Birds
   static const String penguin = 'assets/png/pingwin.png';
@@ -48,7 +47,7 @@ class ImageSource {
   // Reptiles
   static const String turtle = 'assets/png/cherepaxa.png';
   static const String snake = 'assets/png/snake.png';
-  static const String crocodile = 'assets/png/tigr.png';
+  static const String crocodile = 'assets/png/crocodil.png';
 
   // Insects
   static const String butterfly = 'assets/png/butterfly.png';

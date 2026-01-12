@@ -400,21 +400,6 @@ class AnimalLocalDataSourceImpl implements AnimalLocalDataSource {
         lifespan: '2-3 years',
         funFact: 'Hamsters can store food in their cheeks.',
       ),
-      const AnimalModel(
-        id: 'rabbit',
-        name: 'Rabbit',
-        description:
-            'Cute fluffy pets with long ears. Rabbits are social animals that love to hop and play.',
-        imagePath: ImageSource.rabbit,
-        category: AnimalCategory.pets,
-        habitat: AnimalHabitat.land,
-        size: AnimalSize.small,
-        activity: AnimalActivity.day,
-        diet: 'Herbivore (hay, vegetables, fruits)',
-        lifespan: '8-12 years',
-        funFact: 'Rabbits can jump up to 1 meter high.',
-      ),
-
       // Birds
       const AnimalModel(
         id: 'penguin',
