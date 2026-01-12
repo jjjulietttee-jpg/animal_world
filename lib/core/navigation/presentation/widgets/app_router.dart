@@ -12,8 +12,11 @@ import '../../../../features/home/presentation/screens/home_screen.dart';
 import '../../../../features/home/presentation/screens/animal_detail_screen.dart';
 import '../../../../features/game/presentation/screens/game_screen.dart';
 import '../../../../features/profile/presentation/screens/profile_screen.dart';
+import '../../../../features/favorites/presentation/screens/favorites_screen.dart';
 import '../../../../features/game/domain/entities/animal.dart';
 import '../../../../features/game/domain/usecases/get_animals.dart';
+import '../../../../features/favorites/domain/usecases/toggle_favorite_animal.dart';
+import '../../../../features/favorites/domain/usecases/is_favorite_animal.dart';
 import '../../../services/storage_service.dart';
 
 class AppRouter {
@@ -29,9 +32,7 @@ class AppRouter {
           GoRoute(
             path: NavigationConstants.home,
             pageBuilder: (context, state) => PageTransitions.fadeTransition(
-              child: HomeScreen(
-                getAnimals: getIt<GetAnimals>(),
-              ),
+              child: const HomeScreen(),
               state: state,
             ),
             routes: [
@@ -51,12 +52,21 @@ class AppRouter {
                     child: AnimalDetailScreen(
                       animal: animal,
                       storageService: getIt<StorageService>(),
+                      toggleFavoriteAnimal: getIt<ToggleFavoriteAnimal>(),
+                      isFavoriteAnimal: getIt<IsFavoriteAnimal>(),
                     ),
                     state: state,
                   );
                 },
               ),
             ],
+          ),
+          GoRoute(
+            path: NavigationConstants.favorites,
+            pageBuilder: (context, state) => PageTransitions.fadeTransition(
+              child: const FavoritesScreen(),
+              state: state,
+            ),
           ),
           GoRoute(
             path: NavigationConstants.profile,

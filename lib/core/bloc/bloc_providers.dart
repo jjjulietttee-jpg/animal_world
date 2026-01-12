@@ -12,6 +12,11 @@ import '../../features/game/domain/repositories/animal_repository.dart';
 import '../../features/game/domain/usecases/get_animals.dart';
 import '../../features/game/domain/usecases/get_random_animals.dart';
 import '../../features/game/presentation/bloc/game_bloc.dart';
+import '../../features/favorites/domain/usecases/get_favorite_animals.dart';
+import '../../features/favorites/domain/usecases/toggle_favorite_animal.dart';
+import '../../features/favorites/domain/usecases/is_favorite_animal.dart';
+import '../../features/favorites/presentation/bloc/favorites_bloc.dart';
+import '../../features/animals_list/presentation/bloc/animals_list_bloc.dart';
 import '../services/storage_service.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -23,7 +28,10 @@ class BlocProviders {
     _registerTalker();
     _registerNavigationCubit();
     _registerGameDependencies();
+    _registerFavoritesDependencies();
     _registerGameBloc();
+    _registerFavoritesBloc();
+    _registerAnimalsListBloc();
   }
 
   static void _registerTalker() {
@@ -63,11 +71,48 @@ class BlocProviders {
     );
   }
 
+  static void _registerFavoritesDependencies() {
+    getIt.registerLazySingleton<GetFavoriteAnimals>(
+      () => GetFavoriteAnimals(
+        animalRepository: getIt<AnimalRepository>(),
+        storageService: getIt<StorageService>(),
+      ),
+    );
+
+    getIt.registerLazySingleton<ToggleFavoriteAnimal>(
+      () => ToggleFavoriteAnimal(getIt<StorageService>()),
+    );
+
+    getIt.registerLazySingleton<IsFavoriteAnimal>(
+      () => IsFavoriteAnimal(getIt<StorageService>()),
+    );
+  }
+
   static void _registerGameBloc() {
     getIt.registerFactory<GameBloc>(
       () => GameBloc(
         getAnimals: getIt<GetAnimals>(),
         getRandomAnimals: getIt<GetRandomAnimals>(),
+        storageService: getIt<StorageService>(),
+      ),
+    );
+  }
+
+  static void _registerFavoritesBloc() {
+    getIt.registerFactory<FavoritesBloc>(
+      () => FavoritesBloc(
+        getFavoriteAnimals: getIt<GetFavoriteAnimals>(),
+        toggleFavoriteAnimal: getIt<ToggleFavoriteAnimal>(),
+        isFavoriteAnimal: getIt<IsFavoriteAnimal>(),
+        storageService: getIt<StorageService>(),
+      ),
+    );
+  }
+
+  static void _registerAnimalsListBloc() {
+    getIt.registerFactory<AnimalsListBloc>(
+      () => AnimalsListBloc(
+        getAnimals: getIt<GetAnimals>(),
         storageService: getIt<StorageService>(),
       ),
     );
@@ -99,6 +144,12 @@ class BlocProviders {
         ),
         BlocProvider<GameBloc>(
           create: (_) => getIt<GameBloc>(),
+        ),
+        BlocProvider<FavoritesBloc>(
+          create: (_) => getIt<FavoritesBloc>(),
+        ),
+        BlocProvider<AnimalsListBloc>(
+          create: (_) => getIt<AnimalsListBloc>(),
         ),
       ],
       child: child,

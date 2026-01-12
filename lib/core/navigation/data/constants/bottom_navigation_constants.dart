@@ -13,6 +13,11 @@ class BottomNavigationConstants {
     ),
     NavigationItem(
       iconPath: '',
+      label: NavigationLabels.favorites,
+      route: NavigationConstants.favorites,
+    ),
+    NavigationItem(
+      iconPath: '',
       label: NavigationLabels.game,
       route: NavigationConstants.game,
     ),

@@ -12,6 +12,7 @@ class StorageService {
   static const String _keyGamesPlayed = 'games_played';
   static const String _keyBestScore = 'best_score';
   static const String _keyViewedAnimalsIds = 'viewed_animals_ids';
+  static const String _keyFavoriteAnimalsIds = 'favorite_animals_ids';
 
   SharedPreferences? _prefs;
 
@@ -163,6 +164,49 @@ class StorageService {
       await prefs.remove(_keyViewedAnimalsIds);
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<void> addFavoriteAnimal(String animalId) async {
+    try {
+      final prefs = await _preferences;
+      final favoriteIds = prefs.getStringList(_keyFavoriteAnimalsIds) ?? [];
+      if (!favoriteIds.contains(animalId)) {
+        favoriteIds.add(animalId);
+        await prefs.setStringList(_keyFavoriteAnimalsIds, favoriteIds);
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> removeFavoriteAnimal(String animalId) async {
+    try {
+      final prefs = await _preferences;
+      final favoriteIds = prefs.getStringList(_keyFavoriteAnimalsIds) ?? [];
+      favoriteIds.remove(animalId);
+      await prefs.setStringList(_keyFavoriteAnimalsIds, favoriteIds);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> isFavoriteAnimal(String animalId) async {
+    try {
+      final prefs = await _preferences;
+      final favoriteIds = prefs.getStringList(_keyFavoriteAnimalsIds) ?? [];
+      return favoriteIds.contains(animalId);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<List<String>> getFavoriteAnimalsIds() async {
+    try {
+      final prefs = await _preferences;
+      return prefs.getStringList(_keyFavoriteAnimalsIds) ?? [];
+    } catch (e) {
+      return [];
     }
   }
 }

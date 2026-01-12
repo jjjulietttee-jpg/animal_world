@@ -4,6 +4,7 @@ class NavigationConstants {
   static const String home = '/home';
   static const String game = '/game';
   static const String profile = '/profile';
+  static const String favorites = '/favorites';
   
   static const Duration fastTransition = Duration(milliseconds: 200);
   static const Duration normalTransition = Duration(milliseconds: 350);

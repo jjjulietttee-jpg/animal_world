@@ -33,13 +33,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int _totalAnimals = 0;
   double _progress = 0.0;
 
-  bool _isInitialized = false;
-
   @override
   void initState() {
     super.initState();
     _loadStatistics();
-    _isInitialized = true;
   }
 
   Future<void> _loadStatistics() async {
@@ -61,18 +58,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => CustomPopup(
-        title: 'Сброс прогресса',
+        title: 'Reset Progress',
         content: const Text(
-          'Вы уверены, что хотите сбросить весь прогресс? Это действие нельзя отменить.',
+          'Are you sure you want to reset all progress? This action cannot be undone.',
           style: AppFonts.bodyMedium,
           textAlign: TextAlign.center,
         ),
         primaryButton: GradientButton(
-          text: 'Сбросить',
+          text: 'Reset',
           onPressed: () => Navigator.of(context).pop(true),
         ),
         secondaryButton: GradientButton(
-          text: 'Отмена',
+          text: 'Cancel',
           isSecondary: true,
           onPressed: () => Navigator.of(context).pop(false),
         ),
@@ -86,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(const SnackBar(content: Text('Прогресс сброшен')));
+        ).showSnackBar(const SnackBar(content: Text('Progress reset')));
       }
     }
   }
@@ -95,23 +92,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
       context: context,
       builder: (context) => CustomPopup(
-        title: 'О приложении',
+        title: 'About',
         content: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Animal World', style: AppFonts.headlineLarge),
             SizedBox(height: 8),
-            Text('Версия 1.0.0', style: AppFonts.bodyMedium),
+            Text('Version 1.0.0', style: AppFonts.bodyMedium),
             SizedBox(height: 16),
             Text(
-              'Изучайте животных и играйте в мини-игру "Угадай животное"!',
+              'Learn about animals and play the "Guess the Animal" mini-game!',
               style: AppFonts.bodyMedium,
               textAlign: TextAlign.center,
             ),
           ],
         ),
         primaryButton: GradientButton(
-          text: 'Закрыть',
+          text: 'Close',
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -120,15 +117,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   String _getUsername() {
     if (_animalsViewed == 0) {
-      return 'Новичок';
+      return 'Beginner';
     } else if (_animalsViewed < _totalAnimals / 3) {
-      return 'Любитель животных';
+      return 'Animal Lover';
     } else if (_animalsViewed < (_totalAnimals * 2) / 3) {
-      return 'Знаток природы';
+      return 'Nature Expert';
     } else if (_animalsViewed < _totalAnimals) {
-      return 'Эксперт по животным';
+      return 'Animal Expert';
     } else {
-      return 'Мастер зоологии';
+      return 'Zoology Master';
     }
   }
 
@@ -217,21 +214,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(height: AppSpacing.lg),
                 StatCard(
                   icon: Icons.visibility,
-                  label: 'Животных просмотрено',
+                  label: 'Animals viewed',
                   value: '$_animalsViewed / $_totalAnimals',
                   iconColor: AppColors.primaryOrange,
                 ),
                 SizedBox(height: AppSpacing.md),
                 StatCard(
                   icon: Icons.games,
-                  label: 'Игр сыграно',
+                  label: 'Games played',
                   value: '$_gamesPlayed',
                   iconColor: AppColors.accentYellow,
                 ),
                 SizedBox(height: AppSpacing.md),
                 StatCard(
                   icon: Icons.star,
-                  label: 'Лучший счет',
+                  label: 'Best score',
                   value: '$_bestScore',
                   iconColor: AppColors.accentCoral,
                 ),
@@ -254,7 +251,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Прогресс открытия животных',
+                        'Animal discovery progress',
                         style: AppFonts.headlineSmall.copyWith(
                           color: AppColors.textPrimary,
                           fontWeight: FontWeight.bold,
@@ -306,13 +303,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: AppSpacing.lg),
                 GradientButton(
-                  text: 'Сбросить прогресс',
+                  text: 'Reset progress',
                   onPressed: _resetProgress,
                   isSecondary: true,
                 ),
                 SizedBox(height: AppSpacing.md),
                 GradientButton(
-                  text: 'О приложении',
+                  text: 'About',
                   onPressed: _showAboutDialog,
                   isSecondary: true,
                 ),
