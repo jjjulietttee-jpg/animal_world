@@ -20,6 +20,9 @@ dependencies:
   talker_bloc_logger: ^5.1.9
   shared_preferences: ^2.5.4
   liquid_glass_renderer: ^0.2.0-dev.4
+  webview_flutter: ^4.10.0
+  connectivity_plus: ^6.1.0
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
