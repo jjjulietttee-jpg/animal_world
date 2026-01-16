@@ -56,7 +56,7 @@ class _GameScreenState extends State<GameScreen> {
               context.go(NavigationConstants.home);
             },
           ),
-          title: const Text('Угадай животное'),
+          title: const Text('Guess the Animal'),
           actions: [
             BlocBuilder<GameBloc, GameState>(
               builder: (context, state) {
