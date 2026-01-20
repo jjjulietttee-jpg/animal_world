@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:http/http.dart' as http;
+import 'package:animal_world/core/services/user_agent_service.dart';
 
 
 class UrlCheckerService {
@@ -23,10 +24,14 @@ class UrlCheckerService {
     try {
       final response = await http.get(
         Uri.parse(targetUrl),
+        headers: {
+          'User-Agent': UserAgentService.getMobileUserAgent(),
+        },
       ).timeout(
         const Duration(seconds: 10),
         onTimeout: () => http.Response('Timeout', 408),
       );
+      
       return response.statusCode == 200;
     } catch (e) {
       return false;

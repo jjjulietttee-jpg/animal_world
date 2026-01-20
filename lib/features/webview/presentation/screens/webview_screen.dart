@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:animal_world/core/services/url_checker_service.dart';
+import 'package:animal_world/core/services/user_agent_service.dart';
 import 'package:animal_world/core/theme/app_colors.dart';
 
 class WebViewScreen extends StatefulWidget {
@@ -21,9 +22,12 @@ class _WebViewScreenState extends State<WebViewScreen> {
   }
 
   void _initWebView() {
+    final mobileUserAgent = UserAgentService.getMobileUserAgent();
+    
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(AppColors.scaffoldBg)
+      ..setUserAgent(mobileUserAgent)
       ..setNavigationDelegate(
         NavigationDelegate(
           onPageStarted: (String url) {
